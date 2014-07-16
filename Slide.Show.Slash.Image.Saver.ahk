@@ -1,9 +1,7 @@
 varWait:=1500 
 
 ^+s::varWait+=250
-		SplashTextOn,,, Slowing down....
-		Sleep 750
-		SplashTextOff
+		Notify("T","M",5)		
 		return
 		
 ^+f::varWait-=250
@@ -30,9 +28,7 @@ Loop
     ; But leave the rest below unchanged.
     if not KeepWinZRunning  ; The user signaled the loop to stop by pressing Win-Z again.
 	{
-		SplashTextOn,,, Slideshow is now turned OFF
-		Sleep 750
-		SplashTextOff
+		Notify("Stopping","Stopping",1)	
         break  ; Break out of this loop.
 	}
 }
