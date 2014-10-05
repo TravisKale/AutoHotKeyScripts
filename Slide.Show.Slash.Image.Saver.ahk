@@ -1,17 +1,35 @@
 varWait:=1500 
 
-^+s::varWait+=250
-		Notify("T","M",5)		
+Escape::SendInput, ^{Tab}
+
+*F1::SendInput, {Left 2}
+
+*F3::SendInput, {Enter}
+
+*F9::varWait+=500	
 		return
 		
-^+f::varWait-=250
-		SplashTextOn,,, Slowing down....
-		Sleep 750
-		SplashTextOff
+*F10::varWait-=250
+		Send {Right}
 		return
+
+*F12::
+MouseGetPos,,,NWD_WinID
+WinGetClass, WinClass, ahk_id %NWD_WinID%
+			MouseClick, Right
+			Sleep 100
+			SendInput, w
+			Sleep 100
+			SendInput, {Down 2}
+			Sleep 100
+			SendInput, {Enter}
+			return
+		
+		
+*F11::InputBox, varWait, "Enter SlideShow Speed in miliseconds", "Enter SlideShow Speed In Mili-Seconds", , , , , , , , 1500
 		
 #MaxThreadsPerHotkey 3
-#z::  ;		 Win+Z hotkey (change this hotkey to suit your preferences).
+*F6::  ;		 Win+Z hotkey (change this hotkey to suit your preferences).
 #MaxThreadsPerHotkey 1
 if KeepWinZRunning  ; This means an underlying thread is already running the loop below.
 {
@@ -23,8 +41,11 @@ KeepWinZRunning := true
 Loop
 {
     ; The next four lines are the action you want to repeat (update them to suit your preferences):
-    Send {Right}
+		
+	;Send {Right}
+	SendInput, {Right}
     Sleep varWait
+	
     ; But leave the rest below unchanged.
     if not KeepWinZRunning  ; The user signaled the loop to stop by pressing Win-Z again.
 	{
@@ -44,8 +65,9 @@ return
 
 
 
-*F1::
+*F2::
 myGuid := GUID()
+myPath := "C:\Users\TravisKale\Desktop\H\"
 
 x := (A_ScreenWidth // 2)
 y := (A_ScreenHeight // 2)
@@ -56,11 +78,16 @@ WinGetClass, WinClass, ahk_id %NWD_WinID%
 			MouseClick, Right
 			Sleep 100
 			SendInput, v
-			Sleep 550
+			Sleep 1000 ;450
+			SendInput, %myPath%
 			SendInput, %myGuid%
-			Sleep 200
-			SendInput, {Enter}
-
+			Sleep 100 ;500
+			mousemove, 513, 445
+			sleep 100 ;500
+			MouseClick, Left
+			
+		
+			
 GUID()
 {
 format = %A_FormatInteger% ; save original integer format
